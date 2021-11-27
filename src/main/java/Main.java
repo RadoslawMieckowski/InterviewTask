@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws IOException{
-        genrateAndWrite();
-        TreeMap<Long,Integer>data= readAndMakeMap();
+        File file=generateAndWrite(new File("src/main/resources/data.txt"));
+        TreeMap<Long,Integer>data= readAndMakeMap(file);
         TreeMap<Long,Integer>processedData=makeTreeMapOfChanges(data);
         Stream<Map.Entry<Long,Integer>> outputStream =processedData         //creating stream of map's entries
                 .entrySet()
@@ -18,23 +18,24 @@ public class Main {
 
 
     }
-    public static void genrateAndWrite() throws FileNotFoundException {
+    public static File generateAndWrite(File file) throws FileNotFoundException {
         long stamp=1615560000;           // or: System.currentTimeMillis(); to get a real-time result
         int sec;                        // random seconds
         int input;                        //value 0 or 1, picked randomly
-        var file=new PrintWriter("src/main/resources/data.txt");           //where to print data
+        var destinedFile =new PrintWriter(file);           //where to print data
         for(int i=0;i<10;i++){
             double inputDouble=Math.random();
             if(inputDouble<0.5)input=0;
             else input=1;
-            file.println(stamp + ": "+input);
+            destinedFile.println(stamp + ": "+input);
             sec=(int)(Math.random()*5+(11-5));              //values from 5 to 10
             stamp+=sec;                                     //updating variable stamp
         }
-        file.close();
+        destinedFile.close();
+        return file;
     }
-    public static TreeMap<Long,Integer> readAndMakeMap() throws IOException {
-        Scanner in=new Scanner(new File("src/main/resources/data.txt"));            //source to read
+    public static TreeMap<Long,Integer> readAndMakeMap(File file) throws IOException {
+        Scanner in=new Scanner(file);            //source to read
         List<String>words=new LinkedList<>();                   //list of all words in the source
         while(in.hasNext()){                                // reading from source
             String word=in.next();
