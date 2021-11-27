@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws IOException{
         genrateAndWrite();
         TreeMap<Long,Integer>data= readAndMakeMap();
-        data.forEach((k,v)-> System.out.println(k +": "+v));
-        System.out.println();
+        //data.forEach((k,v)-> System.out.println(k +": "+v));
+        //System.out.println();
         TreeMap<Long,Integer>processedData=makeTreeMapOfChanges(data);
-        processedData.forEach((k,v)-> System.out.println(k+": "+v));
+        //processedData.forEach((k,v)-> System.out.println(k+": "+v));
+        Stream<Map.Entry<Long,Integer>> outputStream =processedData.entrySet()
+                .stream();
+        outputStream.forEach(e-> System.out.println(e.getKey()+": "+e.getValue()));
+
 
     }
     public static void genrateAndWrite() throws FileNotFoundException {
@@ -46,9 +51,9 @@ public class Main {
                 .map(x->Long.parseLong(x))
                 //.mapToLong(x -> Long.parseLong(x)) użycie tego uniemożliwia użycie .collect(Collectors.toList())
                 .collect(Collectors.toList());
-        for(Long x :stamps){
+      /*  for(Long x :stamps){
             System.out.println(x);
-        }
+        }*/
 
 
         List<Integer> inputs=words
@@ -56,9 +61,9 @@ public class Main {
                 .filter(x->x.length()==1)
                 .map(x->Integer.parseInt(x))
                 .collect(Collectors.toList());
-        for(int x :inputs){
+       /* for(int x :inputs){
             System.out.println(x);
-        }
+        }*/
 
         var data=new TreeMap<Long,Integer>();
         ListIterator<Long>stampsLi=stamps.listIterator();
