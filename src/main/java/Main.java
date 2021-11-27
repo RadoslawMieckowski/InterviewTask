@@ -22,7 +22,7 @@ public class Main {
         long stamp=1615560000;           // or: System.currentTimeMillis(); to get a real-time result
         int sec;                        // random seconds
         int input;                        //value 0 or 1, picked randomly
-        var file=new PrintWriter("src/data.txt");           //where to print data
+        var file=new PrintWriter("src/main/resources/data.txt");           //where to print data
         for(int i=0;i<10;i++){
             double inputDouble=Math.random();
             if(inputDouble<0.5)input=0;
@@ -34,7 +34,7 @@ public class Main {
         file.close();
     }
     public static TreeMap<Long,Integer> readAndMakeMap() throws IOException {
-        Scanner in=new Scanner(new File("src/data.txt"));            //source to read
+        Scanner in=new Scanner(new File("src/main/resources/data.txt"));            //source to read
         List<String>words=new LinkedList<>();                   //list of all words in the source
         while(in.hasNext()){                                // reading from source
             String word=in.next();
