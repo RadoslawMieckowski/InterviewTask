@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) throws IOException{
         genrateAndWrite();
-        readAndMakeMap();
+        TreeMap<Long,Integer>data= readAndMakeMap();
+        data.forEach((k,v)-> System.out.println(k +": "+v));
+
     }
     public static void genrateAndWrite() throws FileNotFoundException {
         long stamp=1615560000; // or: System.currentTimeMillis(); to get a real-time result
@@ -25,7 +27,7 @@ public class Main {
         }
         file.close();
     }
-    public static void readAndMakeMap() throws IOException {
+    public static TreeMap<Long,Integer> readAndMakeMap() throws IOException {
         Scanner in=new Scanner(new File("src/data.txt"));
         //var contents=new String(Files.readAllBytes(Paths.get("src/data.txt")), StandardCharsets.UTF_8); nigdy nie używaj tego  ze strumieniami!!
         List<String>words=new LinkedList<>();
@@ -62,7 +64,8 @@ public class Main {
         while(stampsLi.hasNext()){
             data.put(stampsLi.next(), inputsLi.next());
         }
-        data.forEach((k,v)-> System.out.println(k +": "+v));
+
+        return data;
     }
 
 
