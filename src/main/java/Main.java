@@ -10,6 +10,9 @@ public class Main {
         genrateAndWrite();
         TreeMap<Long,Integer>data= readAndMakeMap();
         data.forEach((k,v)-> System.out.println(k +": "+v));
+        System.out.println();
+        TreeMap<Long,Integer>processedData=makeTreeMapOfChanges(data);
+        processedData.forEach((k,v)-> System.out.println(k+": "+v));
 
     }
     public static void genrateAndWrite() throws FileNotFoundException {
@@ -67,7 +70,20 @@ public class Main {
 
         return data;
     }
+    public static TreeMap<Long,Integer> makeTreeMapOfChanges(TreeMap<Long,Integer> treeMap){
 
+        int previousInput=2;
+        TreeMap<Long,Integer>processedMap=new TreeMap<>();
+        Iterator<Map.Entry<Long, Integer>> treeMapIt = treeMap.entrySet().iterator();
+        while (treeMapIt.hasNext()) {
+            Map.Entry<Long, Integer> entry = treeMapIt.next();
+            if (entry.getValue()!= previousInput){
+                processedMap.put(entry.getKey(),entry.getValue());
+                previousInput =entry.getValue();
+            }
+        }
+        return processedMap;
+    }
 
 
 }
