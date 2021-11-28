@@ -55,10 +55,11 @@ public class MainTest {
 
     @Test
     @Order(5)
-    void shouldThrowNullPointerExceptionOnInvalidArgument2() {
-        Path path = Path.of("wrong-path");
-        Throwable throwable=catchThrowable(()->Main.readAndMakeMap(new File(String.valueOf(path))));
-        assertThrows(NullPointerException.class, (Executable) throwable);
+    void shouldThrowFileNotFoundExceptionOnInvalidArgument2() {
+        Path path = Path.of("/wrong-path");
+        assertThrows(FileNotFoundException.class, ()-> {
+            Main.readAndMakeMap(new File(String.valueOf(path)));
+        });
     }
     @Test
     @Order(4)
